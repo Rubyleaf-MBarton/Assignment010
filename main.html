@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>  
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="css/mainstyle.css">
+    <script src='javascript/controller.js'></script>
+
+
+    <title>Web Application</title>
+    
+</head>
+<body>
+
+    <h1 class='w3-jumbo w3-text-grey w3-center'>My First Web Application!</h1>
+     
+    <div class='w3-container w3-grey w3-padding12 w3-text-white w3-medium'>
+        <h3 class='w3-heading3'>Welcome to my first MEAN Web Application.</h3> 
+        <p>The following application allows you to push and remove items from a list, 
+        by simply adding and removing them from using the input fields and buttons.</p>
+        <p>Give it a go!</p>   
+    </div>
+    
+    
+     <div class="w3-row w3-dark-grey" ng-controller='listCtrl'>
+     
+        <div class="w3-col l4 m12 s12 w3-center" id='AddDiv'>   <!--Add Items Column !-->
+            <div class='Editor'>
+                <input ng-model='addItem' placeholder = 'Enter An Item To Add...'>  
+                <button type='button' ng-click='addFunction()'>Add</button>
+            </div>
+        </div>
+        
+        
+        <div class="w3-col s12 m12 l4 w3-red w3-center", id='ListDiv'><!-- List To Be Shown !-->
+            <ul>
+                <li ng-repeat='x in characters'>
+                    {{ x }}
+                </li>
+            </ul>
+        </div>
+        
+        <div class="w3-col l4 m12 s12 w3-center" id='RemoveDiv'> <!-- Remove Items Column !-->
+            <div class='Editor'>
+                <input ng-model='removeItem' placeholder = 'Enter An Item To Remove...'>
+                <button type='button' ng-click='removeFunction()'>Remove</button>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class='w3-container w3-light-grey w3-padding12 w3-text-black w3-medium'>
+        <h3 class='w3-heading3'>You can also use this application to search for Users.</h3> 
+        <p>In the following search bar, use an ID to return a user that corresponds to that ID.</p>
+        <p>Give it a go!</p> 
+    </div>
+    
+    <div class='w3-container w3-teal w3-padding12 Editor w3-row' ng-controller='searchCtrl'>
+        <div class='w3-col l6 m6 s6'>
+            <input ng-model='id' placeholder = 'Enter A User ID (1-5)...'>
+            <button type='button' ng-click='findUser()'>Find</button>
+        </div>
+        <div class='w3-col l6 m6 s6 w3-xxxlarge w3-center' ng-bind='result'>
+             {{ result }} 
+        </div>
+    </div>
+</body>
+</html>

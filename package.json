@@ -1,0 +1,18 @@
+{
+  "name" : "mean-list-project",
+  "description" : "A a web applcation using Node'js, AngularJS, Express and MongoDB.",
+  "author": "max barton",
+  "dependencies": {
+    "express": "^4.14.0",
+    "body-parser" : "latest",
+    "ejs" : "latest",
+    "mongodb" : "latest",
+    "mongoose" : "latest",
+    "node-restful": "latest"
+    
+  },
+  
+  "engine": "node 0.4.1",
+  "npm" : "npm 3.10.8"
+  
+}
