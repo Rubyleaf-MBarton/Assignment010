@@ -4,12 +4,7 @@ app.controller('listCtrl',function($scope, $http) {
 
     $scope.characterData = function() {
         $http.get('/characters').then(function(x) {
-            for (y=0; y < x.data.length; y++) {
-                if (y == 0) {
-                    $scope.characters = []
-                };
-                $scope.characters.push(x.data[y])
-            }
+            $scope.characters = x.data;
         })
     };
 

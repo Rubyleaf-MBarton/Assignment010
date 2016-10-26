@@ -43,17 +43,7 @@ app.get('/characters', function (req, res) {
 })
 
 app.post('/characters', function(req, res) {
-    for (x=0; x < characters.length; x++) {
-        if (req.body.indexOf(characters[x]) == -1) {
-            characters.splice(x, 1);
-        }
-    }
-    for (x=0; x < req.body.length; x++) {
-        if (characters.indexOf(req.body[x]) == -1) {
-            characters.push(req.body[x])
-        }
-    };
-    console.log(characters);
+    characters = req.body;
     return characters
 });
 
