@@ -47,16 +47,16 @@ app.post('/characters', function(req, res) {
     return characters
 });
 
-var Users = [
-    {"Name": "Max", "id": "1"},
-    {"Name": "Laurence", "id": "2"},
-    {"Name": "David", "id": "3"},
-    {"Name": "Sarah", "id": "4"},
-    {"Name": "Spongebob", "id": "5"}
+var users = [
+    {"name": "Max", "id": "1"},
+    {"name": "Laurence", "id": "2"},
+    {"name": "David", "id": "3"},
+    {"name": "Sarah", "id": "4"},
+    {"name": "Spongebob", "id": "5"}
 ]
 app.get("/users/:id", function(req, res) {
-    for (x=0; x < Users.length; x++) {
-        if (Users[x].id == (req.param('id'))) {
-            res.send(Users[x].Name)
+    for (x=0; x < users.length; x++) {
+        if (users[x].id == (req.param('id'))) {
+            res.send(users[x].name)
     };
 }});
