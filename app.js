@@ -39,13 +39,25 @@ server = app.listen(9000, function(){
 var characters = ['Meg Griffin', 'Tom Tucker', 'Peter Griffin'];
 
 app.get('/characters', function (req, res) {
-   res.send(characters)
+   res.send(characters);
 })
 
-app.post('/characters', function(req, res) {
-    characters = req.body;
-    return characters
+app.post('/characters/:char', function(req, res) {
+    characters.push(req.param('char'));
 });
+
+app.delete('/characters/:char', function (req, res) {
+    if (characters.indexOf(req.param('char')) != -1) {
+        characters.splice(characters.indexOf(req.param('char')), 1);
+    }
+});
+
+app.put('/characters/:char', function(req, res) {
+    characters[characters.indexOf(req.param('char'))] = req.body.data;
+})
+
+
+
 
 var users = [
     {"name": "Max", "id": "1"},
@@ -54,6 +66,7 @@ var users = [
     {"name": "Sarah", "id": "4"},
     {"name": "Spongebob", "id": "5"}
 ]
+
 app.get("/users/:id", function(req, res) {
     for (x=0; x < users.length; x++) {
         if (users[x].id == (req.param('id'))) {
