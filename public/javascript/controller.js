@@ -7,15 +7,15 @@ app.controller('listCtrl',function($scope, $http) {
             $scope.characters = x.data;
         })
     };
+    
+    $scope.characterData();
 
     $scope.addFunction = function() {
         var index = $scope.characters.indexOf($scope.addItem);
         if (index == -1) {
              $scope.characters.push($scope.addItem); 
-             $http.post('/characters', $scope.characters).then(function(x) {})
+             $http.post('/characters/' + $scope.addItem).then(function(x) {})
         }
-
-        $scope.characterData();
     };
     
         
@@ -24,17 +24,18 @@ app.controller('listCtrl',function($scope, $http) {
         var index = $scope.characters.indexOf($scope.removeItem);
         if (index != -1) {
             $scope.characters.splice(index, 1);
-            $http.post('/characters', $scope.characters).then(function(x){})
+            $http.delete('/characters/' + $scope.characters).then(function(x){})
+        };
+    };
+    
+    $scope.updateInput = function() {
+        $scope.newInput = window.prompt('Enter a new name for the character:', this.x)
+        if ($scope.newInput != null && $scope.newInput != this.x) {
+            $scope.characters[$scope.characters.indexOf(this.x)] = $scope.newInput;
+            $http.put('/characters/' + this.x, ($scope.newInput)).then(function(x){});
         }
-        $scope.characterData();
     }
-    
-    
-    $scope.characterData();
-
 })
-
-
 
 app.controller('searchCtrl',function($scope, $http) {
 

@@ -1,3 +1,7 @@
+    ul {
+        margin: 0;
+        padding: 0;
+    }
     
     li {
         text-align: center;
@@ -5,7 +9,12 @@
         font-size: 30px;
         padding: 15px;
     }
- 
+    
+    li:hover {
+        background-color: white;
+        color: black;
+        cursor: pointer;
+    }
     .Editor {
         padding-top: 30px;
         padding-bottom: 30px;
