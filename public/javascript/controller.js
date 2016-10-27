@@ -24,7 +24,7 @@ app.controller('listCtrl',function($scope, $http) {
         var index = $scope.characters.indexOf($scope.removeItem);
         if (index != -1) {
             $scope.characters.splice(index, 1);
-            $http.delete('/characters/' + $scope.characters).then(function(x){})
+            $http.delete('/characters/' + $scope.removeItem).then(function(x){})
         };
     };
     
@@ -32,7 +32,7 @@ app.controller('listCtrl',function($scope, $http) {
         $scope.newInput = window.prompt('Enter a new name for the character:', this.x)
         if ($scope.newInput != null && $scope.newInput != this.x) {
             $scope.characters[$scope.characters.indexOf(this.x)] = $scope.newInput;
-            $http.put('/characters/' + this.x, ($scope.newInput)).then(function(x){});
+            $http.put('/characters/' + this.x, {"data" : $scope.newInput}).then(function(x){});
         }
     }
 })
