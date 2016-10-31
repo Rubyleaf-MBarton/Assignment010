@@ -3,6 +3,7 @@
         padding: 0;
     }
     
+    
     li {
         text-align: center;
         list-style: none;
@@ -15,6 +16,7 @@
         color: black;
         cursor: pointer;
     }
+    
     .Editor {
         padding-top: 30px;
         padding-bottom: 30px;

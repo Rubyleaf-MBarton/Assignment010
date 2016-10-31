@@ -36,23 +36,44 @@ server = app.listen(9000, function(){
     console.log('Running');
 });
 
-var characters = ['Meg Griffin', 'Tom Tucker', 'Peter Griffin'];
+var characters = {"1":
+                     {"id": 1, "name":"Meg Griffin"},
+                 "2":
+                     {"id": 2, "name":"Peter Griffin"},
+                 "3":
+                     {"id": 3, "name": "Brian Griffin"}
+                 };
 
-app.get('/characters', function (req, res) {
-   res.send(characters);
+
+keyCount = Object.keys(characters).length + 1
+
+app.get('/characters', function (req, res){
+    res.send(characters)
 });
 
-app.post('/characters/:char', function(req, res) {
-    characters.append(req.param('char'));
+app.post('/characters', function(req, res) {
+    var newEntity = {"id":keyCount, "name":req.body.name};
+    characters[keyCount.toString()] = newEntity
+    keyCount += 1;
+    console.log(characters)
+
 });
 
-app.delete('/characters/:char', function(req, res) {
-    characters.splice(characters.indexOf(req.param('char')), 1);
+app.delete('/characters/:id', function(req, res) {
+    keys = Object.keys(characters)
+    index = keys.indexOf(req.param('id'));
+    delete characters[keys[index]];
 });
 
-app.put('/characters/:char', function(req, res) {
-    characters[characters.indexOf(req.param('char'))] = req.body;
-});
+app.put('/characters/:id', function(req, res) {
+    keys = Object.keys(characters)
+    index = keys.indexOf(req.param('id'));
+    characters[keys[index]].name = req.body.data;
+})
+
+
+
+
 
 var users = [
     {"name": "Max", "id": "1"},
