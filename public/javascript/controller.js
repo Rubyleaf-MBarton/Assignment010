@@ -5,12 +5,12 @@ app.controller('listCtrl',function($scope, $http) {
     $scope.characterData = function() {
         $http.get('/characters').then(function(x) {
             $scope.x = x.data;
-            $scope.keys = Object.keys($scope.x);
-            $scope.characters = []
-            for (i=0; i < $scope.keys.length; i++) {
-                $scope.characters.push($scope.x[$scope.keys[i]].name)
-            }
-        })
+            console.log($scope.x);
+            $scope.characters = [];
+            $scope.x.forEach(function(object){
+                $scope.characters.push(object.name);
+            });
+        });
     };
     
     $scope.characterData();
@@ -19,33 +19,31 @@ app.controller('listCtrl',function($scope, $http) {
         var index = $scope.characters.indexOf($scope.addItem);
         if (index == -1) {
              $scope.characters.push($scope.addItem); 
-             $http.post('/characters', {"name": $scope.addItem}).then(function(x) {})
+             $http.post('/characters', {"name": $scope.addItem}).then(function(x) {});
         }
     };   
-        
+
     $scope.removeFunction = function() {
         var index = $scope.characters.indexOf($scope.removeItem);
         if (index != -1) {
             $scope.characters.splice(index, 1);
-            for (i=0; i < $scope.keys.length; i++) {
-                if ($scope.removeItem == $scope.x[$scope.keys[i]].name) {
-                    $http.delete('/characters/' + $scope.x[$scope.keys[i]].id).then(function(x){})
-                }
-            }
-        };
+            $http.delete('/characters/' + $scope.x[index]._id, function(x){});
+            $scope.x.splice(index, 1);
+            console.log($scope.x);
+        }
     };
     
     $scope.updateInput = function() {
-        $scope.newInput = window.prompt('Enter a new name for the character:', this.character)
+        $scope.newInput = window.prompt('Enter a new name for the character:', this.character);
         if ($scope.newInput != null && $scope.newInput != this.character) {
             $scope.characters[$scope.characters.indexOf(this.character)] = $scope.newInput;
-            for (i=0; i < $scope.keys.length; i++) {
-                if (this.character == $scope.x[$scope.keys[i]].name) {
-                    $http.put('/characters/' + $scope.x[$scope.keys[i]].id, {"data" : $scope.newInput}).then(function(x){});
+            for (i=0; i < $scope.characters.length; i++) {
+                if (this.character == $scope.x[i].name) {
+                    $http.put('/characters/' + $scope.x[i]._id, {"name" : $scope.newInput}).then(function(x){});
                 }
             }
         }
-    }
+    };
 });
 
 
@@ -59,10 +57,9 @@ app.controller('searchCtrl',function($scope, $http) {
 
         $http.get('/users/' + $scope.id).success(function(x) {
             $scope.result = x;
-        })
-    }
-
-})
+        });
+    };
+});
 
 
 Object.values = function (obj) {
@@ -73,4 +70,4 @@ Object.values = function (obj) {
         }
     }
     return vals;
-}
+};

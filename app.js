@@ -26,8 +26,8 @@ myDatabase.close();
 */
 
 app.get('/', function(req, res) {
-    res.sendFile('main.html', {root: __dirname})
-})
+    res.sendFile('main.html', {root: __dirname});
+});
 
 app.use(express.static('public'));
 
@@ -45,31 +45,31 @@ var characters = {"1":
                  };
 
 
-keyCount = Object.keys(characters).length + 1
+var keyCount = 4;
 
 app.get('/characters', function (req, res){
-    res.send(characters)
+    res.send(characters);
 });
 
 app.post('/characters', function(req, res) {
     var newEntity = {"id":keyCount, "name":req.body.name};
-    characters[keyCount.toString()] = newEntity
+    characters[keyCount.toString()] = newEntity;
     keyCount += 1;
-    console.log(characters)
+    console.log(characters);
 
 });
 
 app.delete('/characters/:id', function(req, res) {
-    keys = Object.keys(characters)
+    keys = Object.keys(characters);
     index = keys.indexOf(req.param('id'));
     delete characters[keys[index]];
 });
 
 app.put('/characters/:id', function(req, res) {
-    keys = Object.keys(characters)
+    keys = Object.keys(characters);
     index = keys.indexOf(req.param('id'));
     characters[keys[index]].name = req.body.data;
-})
+});
 
 
 
@@ -81,11 +81,11 @@ var users = [
     {"name": "David", "id": "3"},
     {"name": "Sarah", "id": "4"},
     {"name": "Spongebob", "id": "5"}
-]
+];
 
 app.get("/users/:id", function(req, res) {
     for (x=0; x < users.length; x++) {
         if (users[x].id == (req.param('id'))) {
-            res.send(users[x].name)
+            res.send(users[x].name);
     };
 }});
