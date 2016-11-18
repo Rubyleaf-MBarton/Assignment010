@@ -1,66 +1,86 @@
 var express = require('express');
 var app = express();
 
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+var objectId = require('mongodb').ObjectID;
 var mongoClient = require('mongodb').MongoClient,
     Server = require('mongodb').Server;
 
+
 var myClient = new mongoClient(new Server('localhost', 27017, {}, {}));
+
+
+url = 'mongodb://user1:password1@ds139567.mlab.com:39567/database1';
+
+
+
 
 app.get('/', function(req, res) {
     res.sendFile('main.html', {root: __dirname});
 });
 
+
 app.use(express.static('public'));
+
+
 
 
 server = app.listen(9000, function(){
     console.log('Running');
 });
 
-var characters = {"1":
-                     {"id": 1, "name":"Meg Griffin"},
-                 "2":
-                     {"id": 2, "name":"Peter Griffin"},
-                 "3":
-                     {"id": 3, "name": "Brian Griffin"}
-                 };
 
+/* ADD CONTENT TO DATABASE INITIALLY
+myClient.connect(url, function(err, db){
+    var col = db.collection('familyGuyCharacters');
+    col.insert({"name": "Stewie Griffin"}, function(err, suc){});
+});
+*/
 
-var keyCount = 4;
 
 app.get('/characters', function (req, res){
-    res.send(characters);
+    myClient.connect(url, function(err, db){
+        var col = db.collection('familyGuyCharacters');
+        cursor = col.find({});
+        var docArr = cursor.toArray().then(function(docs) {
+            var data = {};
+            for (i=0; i < docs.length; i++) {
+                data[i] = docs[i];
+            }
+            console.log(data);
+            res.send(data);
+            
+        });
+    });
 });
+
+
+
 
 app.post('/characters', function(req, res) {
-    var newEntity = {"id":keyCount, "name":req.body.name};
-    characters[keyCount.toString()] = newEntity;
-    keyCount += 1;
-    console.log(characters);
-
-
+    myClient.connect(url, function(err, db){
+        var col = db.collection('familyGuyCharacters');
+        console.log(req);
+        col.insert({"name": req.body.name}, function(err, suc){});
+    });
 });
+
 
 app.delete('/characters/:id', function(req, res) {
-    keys = Object.keys(characters);
-    index = keys.indexOf(req.param('id'));
-    delete characters[keys[index]];
-});
-
+    myClient.connect(url, function(err, db){
+        var col = db.collection('familyGuyCharacters');
+        col.deleteOne({_id : new objectId(req.param('id'))}, function(err,suc){})
+    });
+});   
+           
 app.put('/characters/:id', function(req, res) {
-    keys = Object.keys(characters);
-    index = keys.indexOf(req.param('id'));
-    characters[keys[index]].name = req.body.data;
+    myClient.connect(url, function(err, db){
+        var col = db.collection('familyGuyCharacters');
+        col.update({_id : new objectId(req.param('id'))}, {"name": req.body.name}, function(err,suc){})
+    });
 });
-
-var users = [
-    {"name": "Max", "id": "1"},
-    {"name": "Laurence", "id": "2"},
-    {"name": "David", "id": "3"},
-    {"name": "Sarah", "id": "4"},
-    {"name": "Spongebob", "id": "5"}
-];
