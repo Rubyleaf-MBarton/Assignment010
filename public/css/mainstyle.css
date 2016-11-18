@@ -1,15 +1,22 @@
     ul {
+<<<<<<< HEAD
         margin: 0;
         padding: 0;
     }
     
+=======
+        margin:0;
+        padding: 0;
+    }
+>>>>>>> refs/remotes/origin/master
     
     li {
         text-align: center;
         list-style: none;
         font-size: 30px;
-        padding: 15px;
+        padding:10px
     }
+<<<<<<< HEAD
     
     li:hover {
         background-color: white;
@@ -17,6 +24,13 @@
         cursor: pointer;
     }
     
+=======
+ 
+    li:hover {
+        background-color: white;
+        color: black;
+    }
+>>>>>>> refs/remotes/origin/master
     .Editor {
         padding-top: 30px;
         padding-bottom: 30px;
@@ -37,5 +51,4 @@
         padding: 5px;
         background: none;
         background-color: white;
-
     }

@@ -10,21 +10,6 @@ var mongoClient = require('mongodb').MongoClient,
 
 var myClient = new mongoClient(new Server('localhost', 27017, {}, {}));
 
- /*
-myClient.open(function(err, suc){
-    console.log('hello')
-    if (suc) {
-        myDatabase = myClient.db('mainDatabase');  
-    }
-    if (err) {
-        console.log('error')
-    }
-});
-
-myDatabase.close();
-
-*/
-
 app.get('/', function(req, res) {
     res.sendFile('main.html', {root: __dirname});
 });
@@ -57,6 +42,7 @@ app.post('/characters', function(req, res) {
     keyCount += 1;
     console.log(characters);
 
+
 });
 
 app.delete('/characters/:id', function(req, res) {
@@ -71,10 +57,6 @@ app.put('/characters/:id', function(req, res) {
     characters[keys[index]].name = req.body.data;
 });
 
-
-
-
-
 var users = [
     {"name": "Max", "id": "1"},
     {"name": "Laurence", "id": "2"},
@@ -82,10 +64,3 @@ var users = [
     {"name": "Sarah", "id": "4"},
     {"name": "Spongebob", "id": "5"}
 ];
-
-app.get("/users/:id", function(req, res) {
-    for (x=0; x < users.length; x++) {
-        if (users[x].id == (req.param('id'))) {
-            res.send(users[x].name);
-    };
-}});
