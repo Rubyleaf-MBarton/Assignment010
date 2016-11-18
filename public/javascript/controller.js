@@ -6,13 +6,12 @@ app.controller('listCtrl',function($scope, $http) {
         $http.get('/characters').then(function(x) {
             $scope.x = x.data;
             $scope.keys = Object.keys($scope.x);
-            console.log($scope.keys);
-            $scope.characters = [];
-            $scope.x.forEach(function(object){
-                $scope.characters.push(object.name);
+            $scope.characters = $.map($scope.x, function(value, index) {
+                return value.name;
             });
         });
-    };
+    }
+
     
     $scope.characterData();
     

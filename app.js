@@ -52,7 +52,6 @@ app.get('/characters', function (req, res){
             for (i=0; i < docs.length; i++) {
                 data[i] = docs[i];
             }
-            console.log(data);
             res.send(data);
             
         });
